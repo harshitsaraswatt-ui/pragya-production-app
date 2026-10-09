@@ -1,4 +1,4 @@
-name: Build Pragya Production APK
+ name: Build Pragya Production APK
 
 on:
   push:
@@ -22,16 +22,21 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: Download & Setup Gradle 8.2
+        run: |
+          wget -q https://services.gradle.org/distributions/gradle-8.2-bin.zip
+          unzip -q gradle-8.2-bin.zip
+          mkdir -p app/src/main/res
+          ./gradle-8.2/bin/gradle wrapper
 
       - name: Build Debug APK
         run: |
-          gradle wrapper
-          ./gradlew assembleDebug --stacktrace
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload Pragya Production APK
         uses: actions/upload-artifact@v4
         with:
           name: Pragya-Production-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+ 
