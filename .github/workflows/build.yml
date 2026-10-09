@@ -1,4 +1,4 @@
- name: Build Pragya Production APK
+name: Build Pragya Production APK
 
 on:
   push:
@@ -39,4 +39,4 @@ jobs:
         with:
           name: Pragya-Production-APK
           path: app/build/outputs/apk/debug/app-debug.apk
- 
+          
